@@ -12,38 +12,114 @@ class BinarySearchTree:
 
     # Insert the given value into the tree
     def insert(self, value):
-        pass
+        
+        if value < self.value:
+            if self.left is None:
+                self.left = BinarySearchTree(value)
+            else:
+                self.left.insert(value)
+        elif value >= self.value:
+            if self.right is None:
+                self.right = BinarySearchTree(value)
+            else:
+                self.right.insert(value)  
+                
+
 
     # Return True if the tree contains the value
     # False if it does not
     def contains(self, target):
-        pass
+        if self.value  == target:
+            return True
+        if target < self.value:
+            if self.left is None:
+                return False
+            else:
+                return self.left.contains(target)
+        elif target > self.value:
+            if self.right is None:
+                return False
+            else:
+                return self.right.contains(target)
 
     # Return the maximum value found in the tree
     def get_max(self):
-        pass
+        if self.right == None:
+            return self.value
+        else:
+            return self.right.get_max()
 
     # Call the function `cb` on the value of each node
     # You may use a recursive or iterative approach
     def for_each(self, cb):
-        pass
+        if self.right:
+            self.right.for_each(cb)
+        if self.left:
+            self.left.for_each(cb)
+        cb(self.value)
 
     # DAY 2 Project -----------------------
 
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
     def in_order_print(self, node):
-        pass
+        #    Print in order(tree)
+        #    1. Traverse the left sub tree
+        #    2. Visit the root (print the node value)
+        #    3. Traverse the right sub tree
+        if node:
+            self.in_order_print(node.left)
+            print(node.value)
+            self.in_order_print(node.right)
+
+
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
+    #     Breadth First Traversal
+    # Make a queue
+    # Put root in the queue
+    # While queue is not empty
+    #     pop out front of queue
+    # 	DO THE THING!
+    #     if left:
+    #        add left to bck of queue
+    #     if right:
+    # 	   add right to back of queue
     def bft_print(self, node):
-        pass
+        queue = Queue()
+        queue.enqueue(node)
+        while queue.size > 0:
+            current_node = queue.dequeue()
+            print(current_node.value)
+            if current_node.left is not None:
+                queue.enqueue(current_node.left)
+            if current_node.right is not None:
+                queue.enqueue(current_node.right)
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
+    #     Steps:
+    # Make a stack
+    # put root in stack
+    # while stack not empty
+    #     pop root out of stack
+    #     DO THE THING!!!!
+    #     if left
+    #         add left to stack
+    #     if right
+    #         add right to stack
     def dft_print(self, node):
-        pass
+        stack = Stack()
+        stack.push(node)
+        while stack.size > 0:
+            current_node = stack.pop()
+            print(current_node.value)
+            if current_node.left is not None:
+                stack.push(current_node.left)
+            if current_node.right is not None:
+                stack.push(current_node.right)
+        
 
     # STRETCH Goals -------------------------
     # Note: Research may be required
